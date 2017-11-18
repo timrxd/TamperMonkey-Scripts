@@ -1,0 +1,35 @@
+// ==UserScript==
+// @name         MangaReader
+// @namespace    http://tampermonkey.net/
+// @version      0.2
+// @description  Highlight series titles I've read
+// @author       timrxd
+// @match        http://www.mangareader.net/
+// @match        http://www.mangareader.net/latest
+// @match        http://www.mangareader.net/latest/*
+// @require http://code.jquery.com/jquery-latest.js
+// @require  https://gist.github.com/raw/2625891/waitForKeyElements.js
+// @resource series https://dl.dropboxusercontent.com/s/2uxefhas35ldfyk/series.txt?dl=0
+// @grant        GM_getResourceText
+// ==/UserScript==
+
+var titles = GM_getResourceText("series").split(/\n| \|\| /);
+console.log(titles);
+
+waitForKeyElements (
+    ".chapter",
+    highlight
+);
+
+waitForKeyElements (
+    ".openManga",
+    highlight
+);
+
+function highlight(jNode) {
+    $.each( titles, function( key, value ) {
+        if ($.trim(jNode.text().toLowerCase()) == $.trim(value.toLowerCase())) {
+            jNode.html("<font color='red'>★ </font>" + jNode.text()).css("font-weight","Bold");
+        }
+    });
+}
