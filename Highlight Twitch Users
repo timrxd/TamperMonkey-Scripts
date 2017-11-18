@@ -1,0 +1,62 @@
+// ==UserScript==
+// @name         Highlight Twitch Users
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  why would you ever read twitch chat?
+// @author       timrxd
+// @match        https://www.twitch.tv/*
+// @require http://code.jquery.com/jquery-latest.js
+// @require  https://gist.github.com/raw/2625891/waitForKeyElements.js
+// @grant        none
+// ==/UserScript==
+
+var names = [
+    "ATP_297",
+    "IcyMist35",
+    "pereden",
+    "CosmosZR",
+    "NairoMK",
+    "Luhtie",
+    "ZeRo",
+    "TrixiESAM"
+    ];
+
+var headerNode = null;
+var textColor = "white";
+
+// Use white text for dark theme chat
+waitForKeyElements (
+    ".chat__header",
+    getHeaderNode
+);
+
+// Not used, can't find any relevent attributes in node
+function getHeaderNode(jNode) {
+    console.log(jNode);
+    headerNode = jNode;
+}
+
+// Fires on every message that comes through chat
+waitForKeyElements (
+    ".chat-line__message",
+    highlight
+);
+
+// Check every message:
+function highlight(jNode) {
+    // For every name in the watch list:
+    $.each( names, function( key, value ) {
+        if (jNode[0].childNodes[1].innerText == value) {
+
+            //console.log(jNode[0].style.color);
+            //console.log(headerNode.color);
+
+            // Bold every node in the message
+            $.each(jNode[0].childNodes, function(k, node) {
+                node.innerHTML = "<span style='font-weight:bold;color:" + textColor + "'>" + node.innerHTML + "</strong>";
+            });
+        }
+    });
+}
+
+
