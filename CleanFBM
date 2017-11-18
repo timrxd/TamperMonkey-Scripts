@@ -1,0 +1,58 @@
+// ==UserScript==
+// @name         Clean FBM
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Remove left bar
+// @author       You
+// @match        https://www.messenger.com/*
+// @require http://code.jquery.com/jquery-latest.js
+// @require  https://gist.github.com/raw/2625891/waitForKeyElements.js
+// @grant        none
+// ==/UserScript==
+
+waitForKeyElements (
+    "._s15",
+    deleteNode
+);
+
+waitForKeyElements (
+    "sidebar", //"._1enh",
+    deleteNode
+);
+
+waitForKeyElements (
+    "._5742",
+    deleteNode
+);
+
+waitForKeyElements (
+    "._4_j5",
+    deleteNode
+);
+
+waitForKeyElements (
+    "._hh7",
+    blackout
+);
+
+waitForKeyElements (
+    "._-5k ._hh7",
+    blackout
+);
+
+function blackout (jNode) {
+    jNode.css('background-color', 'white');
+    jNode.css('color', 'black');
+}
+
+function deleteNode (jNode) {
+    jNode.hide();
+}
+
+$("body").append("<input type='button' id='show' />");
+
+function toggleNode () {
+    $("._1enh").toggle();
+}
+
+$("#show").click(toggleNode);
