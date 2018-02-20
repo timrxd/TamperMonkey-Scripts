@@ -50,6 +50,10 @@ function highlight(jNode) {
 
             //console.log(jNode[0].style.color);
             //console.log(headerNode.color);
+            
+            // Add a pointer next to name in margin
+            jNode[0].childNodes[0].innerHTML = "<span style='position:relative;left:-11px;margin:-6px'>►</span>" + jNode[0].childNodes[0].innerHTML;
+
 
             // Bold every node in the message
             $.each(jNode[0].childNodes, function(k, node) {
