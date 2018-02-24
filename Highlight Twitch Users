@@ -34,7 +34,7 @@ var textColor = "white";
 
 // Use white text for dark theme chat
 waitForKeyElements (
-    ".twilight-minimal-root",
+    ".__plain_text_READY__",
     getHeaderNode
 );
 
@@ -56,7 +56,7 @@ function highlight(jNode) {
         if (jNode[0].childNodes[1].innerText == value) {
 
             console.log(headerNode);
-            if (headerNode[0].innerHTML.includes("tw-theme--dark")) {
+            if (headerNode[0].className.includes("tw-theme--dark")) {
                 console.log("tw-theme--dark");
                 textColor = "white";
             } else {
