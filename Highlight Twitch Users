@@ -18,7 +18,15 @@ var names = [
     "NairoMK",
     "Luhtie",
     "ZeRo",
-    "TrixiESAM"
+    "TrixiESAM",
+    "fs_darkwizzy",
+    "Westballz",
+    "MreSSB",
+    "gsmVoiD",
+    "lima1",
+    "ANTi",
+    "Chris_Tatarian",
+    "kutlass"
     ];
 
 var headerNode = null;
@@ -26,13 +34,12 @@ var textColor = "white";
 
 // Use white text for dark theme chat
 waitForKeyElements (
-    ".chat__header",
+    ".twilight-minimal-root",
     getHeaderNode
 );
 
 // Not used, can't find any relevent attributes in node
 function getHeaderNode(jNode) {
-    console.log(jNode);
     headerNode = jNode;
 }
 
@@ -48,19 +55,21 @@ function highlight(jNode) {
     $.each( names, function( key, value ) {
         if (jNode[0].childNodes[1].innerText == value) {
 
-            //console.log(jNode[0].style.color);
-            //console.log(headerNode.color);
-            
-            // Add a pointer next to name in margin
-            jNode[0].childNodes[0].innerHTML = "<span style='position:relative;left:-11px;margin:-6px'>►</span>" + jNode[0].childNodes[0].innerHTML;
+            console.log(headerNode);
+            if (headerNode[0].innerHTML.includes("tw-theme--dark")) {
+                console.log("tw-theme--dark");
+                textColor = "white";
+            } else {
+                textColor = "black";
+            }
 
+            jNode[0].childNodes[0].innerHTML = "<span style='position:relative;left:-11px;margin:-6px'>►</span>" + jNode[0].childNodes[0].innerHTML;
 
             // Bold every node in the message
             $.each(jNode[0].childNodes, function(k, node) {
                 node.innerHTML = "<span style='font-weight:bold;color:" + textColor + "'>" + node.innerHTML + "</strong>";
+                //node.innerHTML = "<span style='font-weight:bold;'>" + node.innerHTML + "</strong>";
             });
         }
     });
 }
-
-
